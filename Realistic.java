@@ -17,12 +17,15 @@ public class Realistic {
     public static int getSmallest() {
         // Assume smallest is first element
         int smallest_index = 0;
+        int smallest_element = 0; // initializing a variable to store the smallest element in arr
+        
         // Scan the remaining elements, replacing the position of the smallest element
         // with the position of any element found to be smaller.
         for (int i = 1; i < arr.length; i++) {
             if (arr[i] < arr[smallest_index]) {
                 // found new smallest, update index
                 smallest_index = i;
+                smallest_element = arr[i];
             }
         }
         // When loop is done, smallest_index points to smallest element. Save it in a
@@ -55,15 +58,22 @@ public class Realistic {
          * skipping the smallest element. Also the i-1 index in the second loop ensures
          * that the temporary array index will not get out of bounds.
          */
-        for (int i = 0; i < smallest_index; i++) {
-            temporary[i] = arr[i];
-        }
-        for (int i = smallest_index + 1; i < arr.length; i++) {
-            temporary[i - 1] = arr[i];
-        }
-        // replace principal array with temporary array.
-        arr = temporary;
-        return result; // smallest element
+        if (arr.length != 0) { // if the array is not empty, then create an array with the specified value removed
+            for (int i = 0; i < smallest_index; i++) {
+                temporary[i] = arr[i];
+            }
+            for (int i = smallest_index + 1; i < arr.length; i++) {
+                temporary[i - 1] = arr[i];
+            }
+            // replace principal array with temporary array.
+            arr = temporary;
+            Integer smallest_Integer = smallest_element; // stored before the element was removed, now wrapped in an object
+            return smallest_Integer;
+        } // end first condition
+        else { // if the array is empty, the result is null
+            Integer smallest_Integer = null;
+            return smallest_Integer;
+        } // end if-else
     } // method getSmallest
 
     /**
